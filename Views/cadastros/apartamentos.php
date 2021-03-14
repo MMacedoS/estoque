@@ -4,7 +4,7 @@ include_once  ROOT_PATH."/Views/header.php";
 ?>
 <div class="col main pt-5 mt-3">
     <nav class="navbar navbar-light bg-light justify-content-between col-lg-12 col-md-8">
-        <a class="navbar-brand">Lista de Categorias</a>
+        <a class="navbar-brand">Lista de Apartamentos</a>
         <form class="form-inline">
             <button class="btn btn-outline-primary my-2 my-sm-0 mr-5" onclick="addModal(event);">Adicionar</button>
             <input class="form-control mr-sm-2" type="search" placeholder="pesquisa" id="busca" onkeyup="buscar();" aria-label="Search">
@@ -45,7 +45,7 @@ include_once  ROOT_PATH."/Views/header.php";
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Categoria</h4>
+                <h4 class="modal-title" id="myModalLabel">Apartamentos</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                     <span class="sr-only">Close</span>
@@ -56,21 +56,21 @@ include_once  ROOT_PATH."/Views/header.php";
                     <div class="row">
                     <input type="hidden" name="id" id="id">
                         <div class="col">
-                        <label for="">Categoria</label>
-                            <input type="text" class="form-control" id="categoria" name="categoria" placeholder="nome da categoria">
+                        <label for="">Apartamento</label>
+                            <input type="text" class="form-control" id="apartamento" name="apartamento" placeholder="APT 01">
                         </div>
                         <div class="col-sm-2">
                         <label for="">Ativo</label>
                             <input type="checkbox" id="status" class="form-control" checked value="true" onclick="ativo();" name="status">
                         </div>                        
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                     <div class="col mt-2">
                         <label for="">Imagem</label>
                         <input type="file" name="imagem" class="imagem" id="imagem">
                         <img class="preview-img" id="preview" src="" style="width:40%">
                     </div>
-                    </div>
+                    </div> -->
                 </form>
 
             </div>
@@ -88,22 +88,22 @@ include_once ROOT_PATH."/Views/footer.php";
 
 <script>
 
-const previewImg = document.querySelector('.preview-img');
-const fileChooser = document.querySelector('.imagem');
+// const previewImg = document.querySelector('.preview-img');
+// const fileChooser = document.querySelector('.imagem');
 
-fileChooser.onchange = e => {
-    // arquivo que faremos o upload
-    const fileToUpload = e.target.files.item(0);
-    const reader = new FileReader();
+// fileChooser.onchange = e => {
+//     // arquivo que faremos o upload
+//     const fileToUpload = e.target.files.item(0);
+//     const reader = new FileReader();
 
-// evento disparado quando o reader terminar de ler 
-reader.onload = e => previewImg.src = e.target.result;
+// // evento disparado quando o reader terminar de ler 
+// reader.onload = e => previewImg.src = e.target.result;
 
-// solicita ao reader que leia o arquivo 
-// transformando-o para DataURL. 
-// Isso disparará o evento reader.onload.
-reader.readAsDataURL(fileToUpload);
-};
+// // solicita ao reader que leia o arquivo 
+// // transformando-o para DataURL. 
+// // Isso disparará o evento reader.onload.
+// reader.readAsDataURL(fileToUpload);
+// };
 </script>
 
 <script>
@@ -162,10 +162,12 @@ function lista(dados,numero)
                    if(dados[i]!=null){
                
                     html+='<tr>'+
-                        '<td id="codigo">'+dados[i]['id_cat']+'</td>'+
-                        '<td>'+dados[i]['categoria']+'</td>'+
-                        '<td>'+dados[i]['status']+'</td>'+
-                        '<td><button onclick="editar(this,1);">&#9998;</button></td>'+
+                        '<td id="codigo">'+dados[i]['id_apt']+'</td>';
+                        html+='<td>'+dados[i]['nome']+'</td>';
+                        if(dados[i]['status']==0){
+                        html+='<td>Ativo</td>';
+                        }else{html+='<td>Ocupado</td>';}
+                        html+='<td><button onclick="editar(this,1);">&#9998;</button></td>'+
                        
                     '</tr>';
                     }
@@ -195,7 +197,7 @@ $(document).ready(function(){
     $.ajax({
                 method: 'POST',
                 dataType: 'json',
-                url: '/Estoque/cadastro/Buscar_Categoria',
+                url: '/Estoque/cadastro/Buscar_Apt',
                 success: function(response) {                    // console.log(response);
                     array=response;
                     lista(response,0);
@@ -210,7 +212,7 @@ function buscar(){
                 method: 'POST',
                 dataType: 'json',
                 data:{busca:busca},
-                url: '/Estoque/cadastro/Buscar_Categoria',
+                url: '/Estoque/cadastro/Buscar_Apt',
                 success: function(response) {
                     // console.log(response);
                     lista(response,0);
@@ -218,18 +220,7 @@ function buscar(){
             });
 
 }
-function busca(){
-    $.ajax({
-                method: 'POST',
-                dataType: 'json',
-                url: '/Estoque/cadastro/Buscar_Categoria',
-                success: function(response) {
-                    // console.log(response);
-                    lista(response,0);
-                }
-            });
 
-}
 function anterior(valor)
 {
     pag-=valor;
@@ -251,35 +242,8 @@ function editar(obj,param){
   var column = $(obj).parents("tr").find("td:nth-child(" + param + ")");
   var dados = column.html();
 
-  $.ajax({
-                method: 'POST',
-                dataType: 'json',
-                url: '/Estoque/cadastro/Buscar_Categoria',
-                data:{dados:dados},
-                success: function(response) {
-                    
-                //    lista();
-                $('#categoria').val(response[0]['categoria']);
-                $('#id').val(response[0]['id_cat']);
-                if(response[0]['status']=='true')
-                {
-                    document.getElementById('status').checked=true;
-                }
-                else
-                {
-                    document.getElementById('status').checked=false;
-                }
-                var img = document.getElementById('preview');
-                var localimagem="/Estoque/Views/assets/";
-                img.src=localimagem+response[0]['imagem'];
-               
-                
-                
-
                 $('#myCadastrar').modal('show');
-                }
-            });
-
+                
 }
 
 function cadastrar(){
@@ -295,7 +259,7 @@ function cadastrar(){
                 method: 'POST',
                 processData: false,
                 contentType: false,
-                url: '/Estoque/cadastro/inserir_Categoria',
+                url: '/Estoque/cadastro/inserir_Apt',
                 data:new FormData(document.getElementById("form_categorias")),
                 success: function(response) {
                     window.location.reload();
@@ -305,7 +269,7 @@ function cadastrar(){
     {
         $.ajax({
                 method: 'POST',
-                url: '/Estoque/cadastro/update_Categoria',
+                url: '/Estoque/cadastro/update_Apt',
                 data:new FormData(document.getElementById("form_categorias")),
                 processData: false,
                 contentType: false,

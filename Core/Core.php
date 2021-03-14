@@ -12,7 +12,7 @@ class Core {
             $url=$_GET['pag'];
         }if(isset($_POST['cadastro'])){
             $url=$_POST['cadastro'];
-            exit;
+            
         }
 
         if(!empty($url))
@@ -40,8 +40,12 @@ class Core {
         }
         $caminho="Estoque/Controllers/".$controller.".php";
 
-        if(!file_exists($caminho)&& !method_exists($controller,$metodo))
-        {
+        if(!file_exists($caminho) && !method_exists($controller,$metodo))
+        { 
+            if(!empty($parametros) && !file_exists(ROOT_PATH.$parametros[0])){
+                $controller="HomeController";
+                $metodo="index";
+            }
             $controller="HomeController";
             $metodo="index";
         }

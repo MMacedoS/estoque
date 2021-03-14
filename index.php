@@ -1,4 +1,9 @@
 <?php
+$painel_atual='40b7a3a1d5bab18e2b591461de8b38d6';
+
+define('ROTA_PATH',"http://$_SERVER[HTTP_HOST]".'/estoque');
 define('ROOT_PATH', dirname(__FILE__));
-require "autoload.php" ;
+define('ASSETS',ROOT_PATH."/Views/assets/");
+require "config.php";
+require "autoload.php";
 $c = new Core();

@@ -8,22 +8,21 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Modal</h4>
+                <h4 class="modal-title" id="myModalLabel">Sair</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                     <span class="sr-only">Close</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>This is a dashboard layout for Bootstrap 4. This is an example of the Modal component which you can use to show content.
-                Any content can be placed inside the modal and it can use the Bootstrap grid classes.</p>
+                <p>Deseja realmente sair do sistema ?.</p>
                 <p>
-                    <a href="https://www.codeply.com/go/KrUO8QpyXP" target="_ext">Grab the code at Codeply</a>
+                    <!-- <a href="https://www.codeply.com/go/KrUO8QpyXP" target="_ext">Grab the code at Codeply</a> -->
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary-outline" data-dismiss="modal">OK</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">NÃO</button>
+                <button type="button" class="btn btn-success" onclick="sair()" data-dismiss="modal">SIM</button>
             </div>
         </div>
     </div>
@@ -46,6 +45,11 @@ function clique(resposta){
     if(resposta=="produto"){
         window.location.href="/Estoque/cadastro/produto";
     }
+}
+function sair(){
+   
+        window.location.href="/Estoque/config.php?acao=quebra";
+   
 }
 
 </script>

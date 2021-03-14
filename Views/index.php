@@ -1,10 +1,28 @@
 <?php 
 include "header.php";
-?>
+// $painel=md5('logado');
 
+?>
+<style>
+li.cards_item {
+    display: inline-block;
+    text-align: center; 
+    padding:16px;
+}
+ul.cards {
+    display: inline-block;
+}
+li .card {
+    width: 100%;
+}
+.card_image img {
+    width: 100%;
+    height: 30vh;
+}
+</style>
 <div class="col main pt-5 mt-3">
             <h1 class="display-4 d-none d-sm-block">
-            Dados
+            Dados <?php   ?>
             </h1>
             <p class="lead d-none d-sm-block">Historico</p>
 
@@ -16,8 +34,8 @@ include "header.php";
                             <div class="rotate">
                                 <i class="fa fa-user fa-4x"></i>
                             </div>
-                            <h6 class="text-uppercase">Clientes</h6>
-                            <h1 class="display-4">134</h1>
+                            <h6 class="text-uppercase">APTS</h6>
+                            <h1 class="display-4"><?=count($this->apts)?></h1>
                         </div>
                     </div>
                 </div>
@@ -28,7 +46,7 @@ include "header.php";
                                 <i class="fa fa-list fa-4x"></i>
                             </div>
                             <h6 class="text-uppercase">Produtos</h6>
-                            <h1 class="display-4">87</h1>
+                            <h1 class="display-4"><?=count($this->produtos)?></h1>
                         </div>
                     </div>
                 </div>
@@ -38,12 +56,12 @@ include "header.php";
                             <div class="rotate">
                                 <i class="fa fa-twitter fa-4x"></i>
                             </div>
-                            <h6 class="text-uppercase">Saidas</h6>
-                            <h1 class="display-4">125</h1>
+                            <h6 class="text-uppercase">Estoque</h6>
+                            <h6 class="display-4"><?=$estoques[0]['itens']?> itens</h6>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-sm-6 py-2 " onclick="alert('opa');">
+                <!-- <div class="col-xl-3 col-sm-6 py-2 " onclick="alert('opa');">
                     <div class="card text-white bg-warning h-100">
                         <div class="card-body">
                             <div class="rotate">
@@ -53,7 +71,7 @@ include "header.php";
                             <h1 class="display-4">36</h1>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
             <!--/row-->
 
@@ -61,8 +79,32 @@ include "header.php";
             <a id="features"></a>
             <hr>
            <p></p>
+
+
+           <div class="main">
+
+            <ul class="cards">
+            <?php foreach($this->apts as $key=>$value){?>
+               <li class="cards_item">
+                <div class="card">
+                    <div class="card_image">
+                    <?php  if($value['status']==0){?>
+                            <a href="<?=ROTA_PATH?>/caixa/index/<?=$value['id_apt']?>"><img src="<?=ROTA_PATH?>/Views/assets/aberta.png"></a>
+                    <?php }else{?>
+                        <a href="<?=ROTA_PATH?>/caixa/index/<?=$value['id_apt']?>"> <img src="<?=ROTA_PATH?>/Views/assets/fechada.png"></a>
+                    <?php }?>
+                    </div>
+                    <div class="card_content">
+                    <h2 class="card_title"><?=$value['nome']?></h2>   
+                    </div>
+                </div>
+                </li>
+                <?php }?>
+            </ul>
+            </div>
+
            
-                <div class="col-lg-12 col-md-8">
+                <!-- <div class="col-lg-12 col-md-8">
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead class="thead-inverse">
@@ -141,18 +183,20 @@ include "header.php";
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div> -->
+
+
             </div>
             <!--/row-->
 
            
 
         
-            <a id="layouts"></a>
+            <!-- <a id="layouts"></a> -->
           
            
-                <div class="col-lg-6">
-                    <!-- Nav tabs -->
+                <!-- <div class="col-lg-6">
+                    <-- Nav tabs ->
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" href="#home1" role="tab" data-toggle="tab">Home</a>
@@ -166,9 +210,9 @@ include "header.php";
                         <li class="nav-item">
                             <a class="nav-link" href="#settings1" role="tab" data-toggle="tab">Settings</a>
                         </li>
-                    </ul>
+                    </ul> -->
 
-                    <!-- Tab panes -->
+                    <!-- Tab panes
                     <div class="tab-content">
                         <br>
                         <div role="tabpanel" class="tab-pane active" id="home1">
@@ -198,8 +242,8 @@ include "header.php";
                                 4. Some of the Bootstrap 3.x components like well and panel have been dropped for the new card component.
                             </p>
                         </div>
-                    </div>
-                </div>
+                    </div> -->
+                <!-- </div> -->
                
                     </div><!--/card-->
                 </div><!--/col-->

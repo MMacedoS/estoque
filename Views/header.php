@@ -47,16 +47,24 @@
     <div class="row row-offcanvas row-offcanvas-left">
         <div class="col-md-3 col-lg-2 sidebar-offcanvas bg-light pl-0" id="sidebar" role="navigation">
             <ul class="nav flex-column sticky-top pl-0 pt-5 mt-3">
-                <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link" href="/estoque">Inicio</a></li>
                 <li class="nav-item">
                     <a class="nav-link" href="#submenu1" data-toggle="collapse" data-target="#submenu1">Cadastros</a>
                     <ul class="list-unstyled flex-column pl-3 collapse" id="submenu1" aria-expanded="false">
-                    <li class="nav-item"><a class="nav-link" href="/Estoque/cadastro/Categoria">Categorias</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/Estoque/cadastro/Apartamento">Apartamentos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/Estoque/cadastro/Categoria">Categorias</a></li>
                        <li class="nav-item"><a class="nav-link" href="/Estoque/cadastro/Cliente">Clientes</a></li>
                        <li class="nav-item"><a class="nav-link" href="/Estoque/cadastro/Produto">Produtos</a></li>
                     </ul>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="#">Situação Estoque</a></li>
+                <li class="nav-item"><a class="nav-link" href="/Estoque/situacao/index/estoque">Situação Estoque</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#submenu2" data-toggle="collapse" data-target="#submenu2">Relatório</a>
+                    <ul class="list-unstyled flex-column pl-3 collapse" id="submenu2" aria-expanded="false">
+                        <li class="nav-item"><a class="nav-link" href="/Estoque/situacao/relEntrada/entrada">Entrada</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/Estoque/situacao/relEntrada/saida">Saida</a></li>
+                    </ul>
+                </li>
                 <li class="nav-item"><a class="nav-link" href="#">Saida</a></li>
                
             </ul>
