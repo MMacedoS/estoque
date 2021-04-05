@@ -97,5 +97,13 @@ function dataAtualFormatada(){
         anoF = data.getFullYear();
     return diaF+"/"+mesF+"/"+anoF;
 }
+
+function buscar(event){
+    event.preventDefault();
+    var inicio=$('#data_inicio').val();
+    var fim=$('#data_fim').val();
+
+   window.open("<?=$path?>/estoque/caixa/saida/rel_saida.php?inicio="+inicio+"&fim="+fim,"_blank");
+}
 </script>
 

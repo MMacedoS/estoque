@@ -1,5 +1,7 @@
 <?php
 
+require_once "./Models/caixaModel.php";
+
 class Controller
 {
     public $dados;
@@ -36,9 +38,19 @@ class Controller
         require_once('Views/estoque/'.$nome.'.php');
     }
 
-    public function mostrarRelatorio($nome,$dados)
+    public function mostrarRelatorio($nome)
     {
-        require_once('Views/relatorio/'.$nome.'.php');
+        require_once('Views/relatorio/'.$nome.".php");
+    }
+    public function mostrarRelsaida($nome)
+    {
+        require_once('Views/relatorio/'.$nome);
+    }
+    public function buscaRelCaixa($inicio,$fim)
+    {
+        $caixas=CaixaModel::getCaixa(1,$inicio,$fim);
+        
+        return $caixas;
     }
 }
 ?>

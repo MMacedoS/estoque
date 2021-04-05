@@ -49,8 +49,9 @@ class CaixaModel{
     {
         $con=new Conexao;
         $con->MontarConexao();
-        $dados=$con->pdo->prepare('UPDATE caixa set status=:status where id_caixa=:caixa');
+        $dados=$con->pdo->prepare('UPDATE caixa set status=:status,fechamento=:fechamento where id_caixa=:caixa');
         $dados->bindValue(':caixa',$id);
+        $dados->bindValue(':fechamento',Date('Y-m-d'));
         $dados->bindValue(':status','1');
         $dados=$dados->execute();    
         return $dados;
@@ -65,7 +66,24 @@ class CaixaModel{
         $dados=$dados->execute();    
         return $dados;
     }
+    function getConsById($id)
+    {
+        $con=new Conexao;
+        $con->MontarConexao();
+        $dados=$con->pdo->query("SELECT con.valor,con.quantidade,con.data,pro.descricao,cai.caixa,cai.abertura FROM consumo con INNER JOIN caixa cai on cai.id_caixa=con.id_caixa INNER JOIN produto pro on pro.id_prod=con.produto where con.id_caixa='$id'");
+        $dados=$dados->fetchAll(PDO::FETCH_ASSOC);
 
+        return $dados;
+    }
+
+    function getCaixa($status,$inicio,$fim)
+    {
+        $con=new Conexao;
+        $con->MontarConexao();
+        $dados=$con->pdo->query("SELECT * FROM caixa where status='1' and fechamento between '2021-03-29' and '2021-03-30'");
+        $dados=$dados->fetchAll(PDO::FETCH_ASSOC);
+        return $dados;
+    }
 }
 
 ?>

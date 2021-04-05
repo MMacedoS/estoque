@@ -40,7 +40,16 @@ class CaixaController extends Controller
         $consumo=CaixaModel::deleteConsumo($id);
         echo json_encode($consumo);
     }
-    
+    public function relatorio($id)
+    {
+        $consumo=CaixaModel::getConsById($id);
+       $this->mostrarRelatorio('caixa',$consumo);
+    }
+    public function saida($params)
+    {
+        $this->mostrarRelsaida($params);
+        
+    }
 
     
 }

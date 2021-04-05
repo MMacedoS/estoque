@@ -49,6 +49,10 @@ include_once  ROOT_PATH."/Views/header.php";
                 <div class="col">
                     <button class="btn btn-warning float-right" onclick="fechar(event)">Finalizar Caixa</button>
                 </div>
+                
+                <div class="col">
+                    <button class="btn btn-success float-right" onclick="imprimir(event)">Imprimir Caixa</button>
+                </div>
         </div>
     </div>
 
@@ -138,6 +142,11 @@ function remover(id)
     }).done(function(response){
         window.location.reload();
     });
+}
+function imprimir(event){
+    event.preventDefault();
+   
+    window.open("<?=$path?>/estoque/caixa/relatorio/<?=$caixa?>","_blank");
 }
 
 </script>
