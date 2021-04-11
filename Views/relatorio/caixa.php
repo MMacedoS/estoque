@@ -64,7 +64,7 @@ $pagina.='<html>';
 
             padding-bottom: 10px;
 
-            text-align: left;
+            // text-align: left;
 
             background-color: #4CAF50;
 
@@ -83,7 +83,7 @@ $pagina.='<html>';
             border: 1px solid black;
 
             white-space: nowrap;
-            text-align:center;
+            text-align:center !important;
 
         }
 
@@ -105,7 +105,7 @@ $pagina.='<html>';
 
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 
-    <title>Boletim Alunos</title>
+    <title>Caixa CLiente</title>
 
 </head>
 
@@ -117,14 +117,17 @@ $pagina.='<html>';
 
 $pagina.='<body>';
 // $pagina.=$nome;
-$data=explode("-",$dados[0]['abertura']);
+$data=explode("-",$this->dados[0]['abertura']);
+// var_dump($nome,$this->dados);
+
+// die;
 $data=$data[2].'/'.$data[1].'/'.$data[0];
 $pagina.='<table id="customers" width="100%">
 <tr>
 <th width="33%" colspan="3"  style="font-size: 24;" align="center"><strong>CAIXA CLIENTE</strong></th> 
 </tr>
 <tr>
-    <td width="50%">'.$dados[0]['caixa'].'</td>
+    <td width="50%">'.$this->dados[0]['caixa'].'</td>
 
     <td width="25%" align="center">'.$data.'</td>
 
@@ -140,13 +143,18 @@ $pagina.='<table id="customers" width="100%">
 
             $pagina.='<tr>';
             $pagina.='<th>Produto</th>';
+            $pagina.='<th>Data Consumo</th>';
             $pagina.='<th>Quantidade</th>';
             $pagina.='<th>Valor</th>';
             $pagina.='<th>Total</th>';
             $pagina.='</tr>';
-        foreach($dados as $key=>$value){
+        foreach($this->dados as $key=>$value){
+            
+            $dtconsumo=explode("-",$value['data']);
+            $dtconsumo=$dtconsumo[2].'/'.$dtconsumo[1].'/'.$dtconsumo[0];
             $pagina.='<tr>';
             $pagina.='<td>'.$value['descricao'].'</td>';
+            $pagina.='<td>'.$dtconsumo.'</td>';
             $pagina.='<td>'.$value['quantidade'].'</td>';
             $pagina.='<td>R$: '.$value['valor'].'</td>';
             $pagina.='<td> R$: '.number_format($value['valor']*$value['quantidade'],2).'</td>';
@@ -155,7 +163,7 @@ $pagina.='<table id="customers" width="100%">
         }
             $pagina.="<tr>";
             $pagina.="<th>Valor Total do consumo: </th>";
-            $pagina.='<th colspan="3" style="font-size:20px;text-align:center;background-color:#005f12;">R$: '.$totalgeral.'</th>';
+            $pagina.='<th colspan="4" style="font-size:20px;text-align:center;background-color:#005f12;">R$: '.$totalgeral.'</th>';
             $pagina.="</tr>";
     $pagina.='</table>';
         

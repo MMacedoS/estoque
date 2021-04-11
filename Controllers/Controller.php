@@ -38,8 +38,9 @@ class Controller
         require_once('Views/estoque/'.$nome.'.php');
     }
 
-    public function mostrarRelatorio($nome)
+    public function mostrarRelatorio($nome,$consumos)
     {
+        $this->dados=$consumos;
         require_once('Views/relatorio/'.$nome.".php");
     }
     public function mostrarRelsaida($nome)
