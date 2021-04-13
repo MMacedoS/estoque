@@ -47,7 +47,12 @@ class CaixaController extends Controller
     }
     public function saida($params)
     {
-        $this->mostrarRelsaida($params);
+        $params=explode('|',$params);
+        // var_dump($params);
+        // die;
+        $saidas=CaixaModel::getCaixa($params[0],$params[1]);
+        $ConsSaidas=CaixaModel::getCons($params[0],$params[1]);
+        $this->mostrarRelsaida('rel_saida',$saidas,$ConsSaidas,$params[0],$params[1]);
         
     }
 

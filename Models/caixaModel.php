@@ -76,11 +76,20 @@ class CaixaModel{
         return $dados;
     }
 
-    function getCaixa($status,$inicio,$fim)
+    function getCaixa($inicio,$fim)
     {
         $con=new Conexao;
         $con->MontarConexao();
-        $dados=$con->pdo->query("SELECT * FROM caixa where status='1' and fechamento between '2021-03-29' and '2021-03-30'");
+        $dados=$con->pdo->query("SELECT * FROM caixa c where c.status='1' and c.fechamento between '$inicio' and '$fim'");
+        $dados=$dados->fetchAll(PDO::FETCH_ASSOC);
+        return $dados;
+    }
+
+    function getCons($inicio,$fim)
+    {
+        $con=new Conexao;
+        $con->MontarConexao();
+        $dados=$con->pdo->query("SELECT cons.*,p.precoVenda as valorUnitario FROM consumo cons inner join produto p on cons.produto=p.id_prod where cons.data between '$inicio' and '$fim'");
         $dados=$dados->fetchAll(PDO::FETCH_ASSOC);
         return $dados;
     }

@@ -103,7 +103,8 @@ function buscar(event){
     var inicio=$('#data_inicio').val();
     var fim=$('#data_fim').val();
 
-   window.open("<?=$path?>/estoque/caixa/saida/rel_saida.php?inicio="+inicio+"&fim="+fim,"_blank");
+    window.open("<?=$path?>/estoque/caixa/saida/"+inicio+"|"+fim,"_blank");
+
 }
 </script>
 

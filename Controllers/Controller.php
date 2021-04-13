@@ -43,9 +43,9 @@ class Controller
         $this->dados=$consumos;
         require_once('Views/relatorio/'.$nome.".php");
     }
-    public function mostrarRelsaida($nome)
+    public function mostrarRelsaida($nome,$saidas,$consumos,$inicio,$fim)
     {
-        require_once('Views/relatorio/'.$nome);
+        require_once('Views/relatorio/'.$nome.'.php');
     }
     public function buscaRelCaixa($inicio,$fim)
     {

@@ -9,9 +9,9 @@
 
 <?php 
 // require_once 'Controllers/caixaController.php';
-echo $inicio=$_GET['inicio'];
-$fim=$_GET['fim'];
-exit;
+// echo $inicio=$_GET['inicio'];
+// $fim=$_GET['fim'];
+// exit;
  include('pdf/mpdf.php');
 
 //  $con = new SituacaoController();
@@ -66,7 +66,7 @@ $pagina.='<html>';
 
             padding-bottom: 10px;
 
-            text-align: left;
+            // text-align: left;
 
             background-color: #4CAF50;
 
@@ -116,52 +116,65 @@ $pagina.='<html>';
 
 
 
+$inicio=explode("-",$inicio);
+$inicio=$inicio[2].'/'.$inicio[1].'/'.$inicio[0];
+
+$fim=explode("-",$fim);
+$fim=$fim[2].'/'.$fim[1].'/'.$fim[0];
 
 $pagina.='<body>';
-$pagina.=$inicio;
-$dados=$this->buscaRelCaixa($_GET['inicio'],$_GET['fim']);
-$data=explode("-",$dados[0]['abertura']);
-$data=$data[2].'/'.$data[1].'/'.$data[0];
+
 $pagina.='<table id="customers" width="100%">
 <tr>
 <th width="33%" colspan="3"  style="font-size: 24;" align="center"><strong>Saidas</strong></th> 
 </tr>
 <tr>
-    <td width="50%">'.$dados[0]['caixa'].'</td>
-
-    <td width="25%" align="center">'.$data.'</td>
-
-    <td width="25%" style="text-align: right;"> Caldas do Jorro,Tucano-Ba</td>
-
+    <td colspan="3" width="50%">De '.$inicio.' á '.$fim.'</td>
 </tr>
 </table>
 
-<h4>Consumo</h4>
+
 
 ';
+$saida=0;
    $pagina.='<table id="customers">';
-
+        foreach($saidas as $key => $value){
+         $saida=0;
             $pagina.='<tr>';
-            $pagina.='<th>Descricao</th>';
+            $pagina.='<th colspan="5">'.$value['caixa'].'</th>';
+            $pagina.='</tr><tr>';
             $pagina.='<th>Data</th>';
             $pagina.='<th>Produto</th>';
             $pagina.='<th>Quantidade</th>';
-            $pagina.='<th>Valor</th>';
+            $pagina.='<th>Valor Unitario</th>';
             $pagina.='<th>Total</th>';
             $pagina.='</tr>';
-        foreach($dados as $key=>$value){
+            foreach($consumos as $key=>$consumo){
+            if($consumo['id_caixa']==$value['id_caixa']){
+
+                $dtconsumo=explode("-",$consumo['data']);
+                $dtconsumo=$dtconsumo[2].'/'.$dtconsumo[1].'/'.$dtconsumo[0];
             $pagina.='<tr>';
-            $pagina.='<td>'.$value['descricao'].'</td>';
-            $pagina.='<td>'.$value['quantidade'].'</td>';
-            $pagina.='<td>R$: '.$value['valor'].'</td>';
-            $pagina.='<td> R$: '.number_format($value['valor']*$value['quantidade'],2).'</td>';
-            $totalgeral+=number_format($value['valor']*$value['quantidade'],2);
+             $pagina.='<td>'.$dtconsumo.'</td>';
+             $pagina.='<td>'.$consumo['produto'].'</td>';
+             $pagina.='<td>'.$consumo['quantidade'].'</td>';
+             $pagina.='<td>R$ '.$consumo['valorUnitario'].'</td>';
+             $total=$consumo['valor'];
+             $pagina.='<td>R$ '.number_format($total,2).'</td>';
             $pagina.='</tr>';
+            $saida+=$total;
+            $totalgeral+=$total;
+            }
+           
         }
+        $pagina.='<tr><td colspan="5" style="color:green;font-size:18pt">Valor: R$ '.$saida.'</td></tr>';
+
+    }
             $pagina.="<tr>";
             $pagina.="<th>Valor Total do consumo: </th>";
             $pagina.='<th colspan="3" style="font-size:20px;text-align:center;background-color:#005f12;">R$: '.$totalgeral.'</th>';
             $pagina.="</tr>";
+        
     $pagina.='</table>';
         
 
